@@ -1,0 +1,82 @@
+#define MgROUTE          "ROUTE"
+#define MgCALL           "CALL"
+#define MgCOMM           "COMM"
+#define MgBEGINW         "BEGIN_WORK"
+#define MgCOMMITW        "COMMIT_WORK"
+#define MgROLLBACKW      "ROLLBACK_WORK"
+#define MgRBEGIN         "ROLLBACK_BEGIN"
+#define MgCBEGIN         "COMMIT_BEGIN"
+#define MgIF             "IF"
+#define MgELSE           "ELSE"
+#define MgENDIF          "ENDIF"
+#define MgDO             "DO"
+#define MgBREAK          "BREAK"
+#define MgCONTINUE       "CONTINUE"
+#define MgWHILE          "WHILE"
+#define MgEVAL           "EVAL"
+#define MgADD            "ADD"
+#define MgSUB            "SUB"
+#define MgMULT           "MULT"
+#define MgDIV            "DIV"
+#define MgSUBSTR         "SUBSTR"
+
+typedef struct Swhile
+{
+  int     nextLineOfDo;    /*do语句所在行的下一行*/
+  int     nextLineOfExit;  /*退出while语句的下一行*/
+}Twhile;
+
+typedef struct Sbreak
+{
+  int     lineOfOprCode;   /*break指令所在行*/
+  int     lineOfDo;        /*do语句所在行*/
+  int     nextLineOfExit;  /*退出while语句的下一行*/
+}Tbreak;
+
+typedef struct Scontinue
+{
+  int     lineOfDo;        /*do语句所在行*/
+  int     nextLineOfDo;    /*do语句所在行的下一行*/
+}Tcontinue;
+
+typedef struct SifExpr
+{
+  int   leftType;
+  int   leftIndex;
+  char  leftParm[21];
+  char  expr[3];
+  int   rightType;
+  int   rightIndex;
+  char  rightParm[21];
+  int   neqJumpSeq;
+  int   eqJumpSeq;
+  int   eqJumpLine;
+}TifExpr;
+
+typedef struct SrouteLst
+{
+  int     callSeq;
+  char    oprCode[21];
+  char    tgXipId[21];
+  char    flowCode[21];
+  TifExpr ifExpr;
+}TrouteLst;
+
+typedef struct StradeLst
+{
+  char    oprCode[21];
+  int     callSeq;
+  char    libName[21];   /*COMM:target id*/
+  char    pgmName[21];   /*COMM:target tradecode*/
+  char    commMode[21];  /*COMM:target comm mode*/
+  TifExpr ifExpr;
+  Twhile  whileExpr;
+  Tbreak  breakExpr;
+  Tcontinue  continueExpr;
+}TtradeLst;
+
+typedef struct SifIf
+{
+  int     callSeq;
+  int     yesNoElse;   /*0-no 1-yes*/
+}TifIf;

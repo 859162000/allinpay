@@ -1,0 +1,138 @@
+#define Mxip_sockid     xip->xipSocketId
+#define Mxip_tgsockid   xip->xipTargetSocketId
+#define Mxip_headbuf    xip->xipHeadBuf
+#define Mxip_pkglen     xip->xipPkgLen
+#define Mxip_rbuf       xip->xipRecvBuf
+#define Mxip_sbuf       xip->xipSendBuf
+#define Mxip_rfname     xip->xipRecvFileName
+#define Mxip_rfpath     xip->xipRecvFilePath
+#define Mxip_sfname     xip->xipSendFileName
+#define Mxip_sfpath     xip->xipSendFilePath
+#define Mxip_rc         xip->xipReplyCode
+#define Mxip_flowcode   xip->xipFlowCode
+#define Mxip_callseq    xip->xipCallSeq
+#define Mxip_bitmap     xip->xipBitMap
+#define Mxip_frsid      xip->xipFromSID
+#define Mxip_frid       xip->xipFromID
+#define Mxip_thflag     xip->xipThroughFlag
+#define Mxip_hosttype   xip->xipHostType
+
+#define Mxip_frtc       xip->xipFromTradeCode
+
+#define Mxip_frtrcmode  xip->xipFromTradeCommMode
+#define Mxip_frtrbflag  xip->xipFromTradeBatchFlag
+#define Mxip_frmidsvnm  xip->xipFromMidServName
+#define Mxip_frip       xip->xipFromIP
+#define Mxip_frport     xip->xipFromPort
+#define Mxip_frtmout    xip->xipFromTimeOut
+
+#define Mxip_frbit      xip->xipFromBitId
+
+#define Mxip_shmkey     xip->xipShmKey
+#define Mxip_semkey     xip->xipSemKey
+#define Mxip_minseq     xip->xipMinSeq
+#define Mxip_maxseq     xip->xipMaxSeq
+#define Mxip_frptype    xip->xipFromPkgType
+#define Mxip_frdcmode   xip->xipFromDataConvMode
+#define Mxip_frsign     xip->xipFromFixedSign
+#define Mxip_frtcdpos   xip->xipFromTrcodePos
+#define Mxip_frtcdlen   xip->xipFromTrcodeLen
+#define Mxip_frfsign    xip->xipFromFileSign
+#define Mxip_frxpmode   xip->xipFromXpathMode
+#define Mxip_frattrnm   xip->xipFromAttrName
+#define Mxip_frxpath    xip->xipFromXpath
+#define Mxip_tgsid      xip->xipTargetSID
+#define Mxip_tgid       xip->xipTargetID
+#define Mxip_tgstate    xip->xipTargetState
+
+#define Mxip_tgtc       xip->xipTargetTradeCode
+
+#define Mxip_tgmidsvnm  xip->xipTargetMidServName
+#define Mxip_tgip       xip->xipTargetIP
+#define Mxip_tgport     xip->xipTargetPort
+#define Mxip_tgtmout    xip->xipTargetTimeOut
+#define Mxip_tglib      xip->xipTargetLib
+#define Mxip_tgpgm      xip->xipTargetPgm
+#define Mxip_tgtrcmode  xip->xipTargetTradeCommMode
+
+#define Mxip_tgbit      xip->xipTargetBitId
+
+#define Mxip_tgptype    xip->xipTargetPkgType
+#define Mxip_tgdcmode   xip->xipTargetDataConvMode
+#define Mxip_tgsign     xip->xipTargetFixedSign
+#define Mxip_tgtcdpos   xip->xipTargetTrcodePos
+#define Mxip_tgtcdlen   xip->xipTargetTrcodeLen
+#define Mxip_tgfsign    xip->xipTargetFileSign
+#define Mxip_tgxpmode   xip->xipTargetXpathMode
+#define Mxip_tgattrnm   xip->xipTargetAttrName
+#define Mxip_tgxpath    xip->xipTargetXpath
+#define Mxip_tgmcflag   xip->xipTargetIsMultComm
+#define Mxip_tgmclib    xip->xipTargetMultCommLib
+#define Mxip_tgmcfunc   xip->xipTargetMultCommFunc
+
+typedef struct SxipCMStc
+{
+   int   xipSocketId;              /*来源渠道SOCKETID*/
+   int   xipTargetSocketId;        /*目标渠道SOCKETID*/
+   long  xipPkgLen;                /*报文长度*/
+   char  xipHeadBuf[256+1];        /*报文头缓冲区*/
+   char  xipRecvBuf[60*1024+1];    /*接收报文缓冲区*/
+   char  xipSendBuf[60*1024+1];    /*发送报文缓冲区*/
+   char  xipSendFileName[31];      /*发送文件名(系统级使用其他业务不允许使用)*/
+   char  xipSendFilePath[101];     /*发送文件路径*/
+   char  xipRecvFileName[31];      /*接收文件名(系统级使用其他业务不允许使用)*/
+   char  xipRecvFilePath[101];     /*接收文件路径*/
+   char  xipReplyCode[11];         /*响应代码*/
+   char  xipFlowCode[11];          /*交易流程代码*/
+   int   xipCallSeq;               /*交易调度顺序号*/
+   char  xipBitMap[2*128+1];       /*交易比特图*/
+   char  xipFromSID[11];           /*来源渠道上级ID*/
+   char  xipFromID[11];            /*来源渠道ID*/
+   char  xipThroughFlag[2];        /*直达目标渠道标志(0-不直达 1-直达)*/
+   char  xipHostType[2];           /*目标渠道主机类型*/
+   char  xipFromTradeCode[11];     /*来源交易码*/
+   char  xipFromTradeCommMode[2];  /*来源交易通讯方式标志*/
+   char  xipFromTradeBatchFlag[2]; /*来源交易信息批量标志*/
+   char  xipFromMidServName[31];   /*来源渠道中间件服务名*/
+   char  xipFromIP[21];            /*来源系统IP*/
+   int   xipFromPort;              /*来源系统PORT*/
+   int   xipFromTimeOut;           /*来源系统连接超时时间*/
+   char  xipFromBitId[21];         /*来源交易比特图ID*/
+   char  xipShmKey;                /*来源渠道流水号共享内存KEY*/
+   char  xipSemKey;                /*来源渠道流水号信号量KEY*/
+   long  xipMinSeq;                /*来源渠道流水号最小序号*/
+   long  xipMaxSeq;                /*来源渠道流水号最大序号*/
+   char  xipFromPkgType[2];        /*来源渠道报文类型*/
+   char  xipFromDataConvMode[2];   /*来源渠道转换数据至总线模式*/
+   int   xipFromFixedSign;         /*来源渠道分隔符类型报文的分隔符号*/
+   int   xipFromTrcodePos;         /*来源渠道国定格式报文的交易代码位置*/
+   int   xipFromTrcodeLen;         /*来源渠道国定格式报文的交易代码长度*/
+   int   xipFromFileSign;          /*来源渠道国定格式报文的文件分隔符*/
+   char  xipFromXpathMode[2];      /*来源渠道XML格式报文的交易代码获取方式*/
+   char  xipFromAttrName[21];      /*来源渠道XML格式报文的交易代码所属属性名*/
+   char  xipFromXpath[61];         /*来源渠道XML格式报文的交易代码搜索路径*/
+   char  xipTargetSID[11];         /*目标渠道上级ID*/
+   char  xipTargetID[11];          /*目标渠道ID*/
+   char  xipTargetState[2];        /*目标渠道状态*/
+   char  xipTargetTradeCode[11];   /*目标交易码*/
+   char  xipTargetMidServName[31]; /*目标渠道中间件服务名*/
+   char  xipTargetIP[21];          /*目标系统IP*/
+   int   xipTargetPort;            /*目标系统PORT*/
+   int   xipTargetTimeOut;         /*目标系统连接超时时间*/
+   char  xipTargetLib[21];         /*目标交易动态库*/
+   char  xipTargetPgm[21];         /*目标交易程序*/
+   char  xipTargetBitId[21];       /*目标交易比特图ID*/
+   char  xipTargetTradeCommMode[2];/*目标交易通讯方式标志*/
+   char  xipTargetPkgType[2];      /*目标渠道报文类型*/
+   char  xipTargetDataConvMode[2]; /*目标渠道转换数据至总线模式*/
+   int   xipTargetFixedSign;       /*目标渠道分隔符类型报文的分隔符号*/
+   int   xipTargetTrcodePos;       /*目标渠道国定格式报文的交易代码位置*/
+   int   xipTargetTrcodeLen;       /*目标渠道国定格式报文的交易代码长度*/
+   int   xipTargetFileSign;        /*目标渠道国定格式报文的文件分隔符*/
+   char  xipTargetXpathMode[2];    /*目标渠道XML格式报文的交易代码获取方式*/
+   char  xipTargetAttrName[21];    /*目标渠道XML格式报文的交易代码所属属性名*/
+   char  xipTargetXpath[61];       /*目标渠道XML格式报文的交易代码搜索路径*/
+   char  xipTargetIsMultComm[2];   /*目标渠道是否多个途径通讯标志*/
+   char  xipTargetMultCommLib[21]; /*目标渠道多个途径通讯判断函数库*/
+   char  xipTargetMultCommFunc[21];/*目标渠道多个途径通讯判断函数*/
+}TxipCMStc;

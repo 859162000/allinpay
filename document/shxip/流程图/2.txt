@@ -1,0 +1,58 @@
+   strcpy(Mxip_tgstate, chnlInfo.xip_state);
+   strcpy(Mxip_hosttype, chnlInfo.xip_hosttype);/*目标渠道主机类型*/
+
+   strtrim(disbInfo.xip_superid);
+   strtrim(chnlInfo.xip_throughid);
+   strtrim(chnlInfo.xip_midservname);
+
+   if (flag[0] == 'F')
+   {
+      strcpy(Mxip_frsid, disbInfo.xip_superid);
+      strtrim(chnlInfo.xip_throughid);
+      strcpy(Mxip_thflag, chnlInfo.xip_throughfg); /*1-直达;0-不直达*/
+      strcpy(Mxip_tgid, chnlInfo.xip_throughid);
+   }
+   else
+   {
+      strcpy(Mxip_tgsid, disbInfo.xip_superid);
+      strtrim(chnlInfo.xip_targetip);
+      strcpy(Mxip_tgip, chnlInfo.xip_targetip);
+      Mxip_tgport = chnlInfo.xip_targetport;
+      Mxip_tgtmout = chnlInfo.xip_linktimeout;
+      strcpy(Mxip_tgmidsvnm, chnlInfo.xip_midservname);
+   }
+
+   if (chnlInfo.xip_state[0] == '1')
+   {
+      return 0;
+   }
+   else if (chnlInfo.xip_state[0] == '2')
+   {
+      strcpy(Mxip_rc, "XP05");
+      set_cm_data(XIPREPLYCODE, Mxip_rc);
+      return 0;
+   }
+   else if (chnlInfo.xip_state[0] == '0')
+   {
+      strcpy(Mxip_rc, "XP02");
+      set_cm_data(XIPREPLYCODE, Mxip_rc);
+      return -15;
+   }
+   else if (chnlInfo.xip_state[0] == '9')
+   {
+      strcpy(Mxip_rc, "XP03");
+      set_cm_data(XIPREPLYCODE, Mxip_rc);
+      return -20;
+   }
+   else if (chnlInfo.xip_state[0] == '*')
+   {
+      strcpy(Mxip_rc, "XP04");
+      set_cm_data(XIPREPLYCODE, Mxip_rc);
+      return -25;
+   }
+   else
+   {
+      strcpy(Mxip_rc, "????");
+      set_cm_data(XIPREPLYCODE, "????");
+      return -30;
+   }
